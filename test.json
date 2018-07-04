@@ -1,0 +1,259 @@
+{
+    "swagger" : "2.0",
+    "info" : {
+      "version" : "1.0.0",
+      "title" : "Seguro Vehicular",
+      "description" : "¡Bienvenido a la API de seguro vehicular! \nEsta documentación proporciona instrucciones para acceder a la API y debería ayudarlo a familiarizarse con los recursos disponibles.\n ### Cómo empezar\n ----------------------------------------------------------------\n Para tener acceso a la API de seguro vehicular, necesita un `Token de acceso`\n ### Solicitud de token de acceso\n ----------------------------------------------------------------\n Para obtener su token de acceso deberá llamar al siguiente método POST\n   `testsoat.interseguro.com.pe/soat/oauth/token`\n Ingresando como parámetros su información (como grand_type, el ID y el secreto de cliente)\n Si se aprueba esta petición, se le proporcionará un token de acceso\n\n ### Uso\n  ----------------------------------------------------------------\n Para consumir el API se accedera a través de llamadas HTTP usando POST a ....\n ### \n     testsoat.interseguro.com.pe/soat/general?access_token=$ACCESS_TOKEN [POST]\n"
+    },
+    "tags" : [ {
+      "name" : "Token de acceso"
+    }, {
+      "name" : "Ejemplos",
+      "description" : "Le brindamos ejemplos de llamadas que puede hacer desde su consola para que pueda probar y entender rápidamente cómo funcionan"
+    } ],
+    "paths" : {
+      "/oauth/token" : {
+        "post" : {
+          "tags" : [ "Token de acceso" ],
+          "parameters" : [ {
+            "name" : "grant_type",
+            "in" : "query",
+            "description" : "Tipo",
+            "required" : false,
+            "type" : "string"
+          }, {
+            "name" : "client_id",
+            "in" : "query",
+            "description" : "Id Cliente",
+            "required" : false,
+            "type" : "string"
+          }, {
+            "name" : "client_secret",
+            "in" : "query",
+            "description" : " secreto de cliente",
+            "required" : false,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "Ok",
+              "schema" : {
+                "type" : "string",
+                "example" : {
+                  "Token" : "OE58EDDPKMFMÑCOPIE44ÑDPDD45"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/marcas" : {
+        "post" : {
+          "summary" : "Product Types",
+          "description" : "The Products endpoint returns information about the *Uber* products\noffered at a given location. The response includes the display name\nand other details about each product, and lists the products in the\nproper display order.\n",
+          "tags" : [ "Ejemplos" ],
+          "parameters" : [ {
+            "name" : "token",
+            "in" : "query",
+            "description" : "API",
+            "required" : false,
+            "type" : "string"
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "Ok",
+              "schema" : {
+                "type" : "string",
+                "example" : {
+                  "Acura" : "44",
+                  "Chevrolet" : "5",
+                  "Ford" : "11",
+                  "Ferrari" : "9"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/modelos" : {
+        "post" : {
+          "tags" : [ "Ejemplos" ],
+          "summary" : "Consulta modelos",
+          "responses" : {
+            "200" : {
+              "description" : "Ok",
+              "schema" : {
+                "type" : "string",
+                "example" : {
+                  "AURIS" : "1270295",
+                  "Cynos" : "1270156",
+                  "FORTUNER" : "1276694",
+                  "YARIS" : "1271224"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/clases" : {
+        "post" : {
+          "tags" : [ "Ejemplos" ],
+          "summary" : "Consulta clases",
+          "responses" : {
+            "200" : {
+              "description" : "Ok",
+              "schema" : {
+                "type" : "string",
+                "example" : {
+                  "AUTOMOVIL" : "1",
+                  "CAMION" : "5",
+                  "CAMIONETA PANEL" : "7",
+                  "CAMIONETA PICK UP" : "4"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/usos" : {
+        "post" : {
+          "tags" : [ "Ejemplos" ],
+          "summary" : "Consulta usos",
+          "responses" : {
+            "200" : {
+              "description" : "Ok",
+              "schema" : {
+                "type" : "string",
+                "example" : {
+                  "CARGA / TRANSPORTE" : "9",
+                  "PARTICULAR" : "4",
+                  "TAXI" : "8"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/autos" : {
+        "post" : {
+          "tags" : [ "Ejemplos" ],
+          "summary" : "Consulta autos",
+          "responses" : {
+            "200" : {
+              "description" : "Ok",
+              "schema" : {
+                "type" : "string",
+                "example" : {
+                  "Acura" : "44",
+                  "Chevrolet" : "5",
+                  "Ford" : "11",
+                  "Ferrari" : "9"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/clientes" : {
+        "post" : {
+          "tags" : [ "Ejemplos" ],
+          "summary" : "Consulta clientes",
+          "responses" : {
+            "200" : {
+              "description" : "Ok",
+              "schema" : {
+                "type" : "string",
+                "example" : {
+                  "Acura" : "44",
+                  "Chevrolet" : "5",
+                  "Ford" : "11",
+                  "Ferrari" : "9"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions" : {
+      "401Response" : {
+        "description" : "Unauthorized request",
+        "type" : "object",
+        "properties" : {
+          "cod" : {
+            "type" : "integer",
+            "description" : "Status code",
+            "example" : 401
+          },
+          "message" : {
+            "type" : "string",
+            "description" : "Status message",
+            "example" : "Invalid API key. Please see http://interseguro.com.pe/faq#error401 for more info."
+          }
+        }
+      },
+      "200Response" : {
+        "required" : [ "marcas", "modelos", "clases", "usos", "autos", "clientes" ],
+        "properties" : {
+          "marcas" : {
+            "properties" : {
+              "id" : {
+                "type" : "number"
+              },
+              "description" : {
+                "type" : "string"
+              }
+            },
+            "type" : "object"
+          },
+          "modelos" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "number"
+              },
+              "description" : {
+                "type" : "string"
+              }
+            }
+          },
+          "clases" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "number"
+              },
+              "description" : {
+                "type" : "string"
+              }
+            }
+          },
+          "usos" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "number"
+              },
+              "description" : {
+                "type" : "string"
+              }
+            }
+          },
+          "clientes" : {
+            "type" : "object",
+            "properties" : {
+              "id" : {
+                "type" : "number"
+              },
+              "description" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemes" : [ "https", "http" ],
+    "host" : "testsoat.interseguro.com.pe",
+    "basePath" : "/soat/general"
+  }
