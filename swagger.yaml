@@ -1,31 +1,36 @@
----
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "¡Bienvenido a la API de seguro vehicular! \nEsta documentación proporciona\
-    \ instrucciones para acceder a la API y debería ayudarlo a familiarizarse con\
-    \ los recursos disponibles.\n ### Cómo empezar\n ----------------------------------------------------------------\n\
-    \ El acceso a la API requiere un token de acceso que se usará en solicitudes posteriores\
-    \ como consultas, registros y actualizaciones\n ### Solicitud de token de acceso\n\
-    \ ----------------------------------------------------------------\n Para obtener\
-    \ su token de acceso deberá llamar al siguiente método POST\n   `testsoat.interseguro.com.pe/soat/oauth/token`\n\
-    \ Ingresando como parámetros su información (como grand_type, el ID y el secreto\
-    \ de cliente)\n Si se aprueba esta petición, se le proporcionará un token de acceso\n\
-    \ El token se puede obtener en la /oauth/tokenURL.\n\n\n ### Uso\n  ----------------------------------------------------------------\n\
-    \ Para consumir el API se accedera a través de llamadas HTTP usando POST a ....\n\
-    \ ### \n     testsoat.interseguro.com.pe/soat/general?access_token=$ACCESS_TOKEN\
-    \ [POST]\n"
   version: 1.0.0
   title: Seguro Vehicular
-host: testsoat.interseguro.com.pe
-basePath: /soat/general
+  description: |
+   ¡Bienvenido a la API de seguro vehicular! 
+   Esta documentación proporciona instrucciones para acceder a la API y debería ayudarlo a familiarizarse con los recursos disponibles.
+    ### Cómo empezar
+    ----------------------------------------------------------------
+    El acceso a la API requiere un token de acceso que se usará en solicitudes posteriores como consultas, registros y actualizaciones
+    ### Solicitud de token de acceso
+    ----------------------------------------------------------------
+    Para obtener su token de acceso deberá llamar al siguiente método POST
+      `testsoat.interseguro.com.pe/soat/oauth/token`
+    Ingresando como parámetros su información (como grand_type, el ID y el secreto de cliente)
+    Si se aprueba esta petición, se le proporcionará un token de acceso
+    El token se puede obtener en la /oauth/tokenURL.
+
+   
+    ### Uso
+     ----------------------------------------------------------------
+    Para consumir el API se accedera a través de llamadas HTTP usando POST a ....
+    ### 
+        testsoat.interseguro.com.pe/soat/general?access_token=$ACCESS_TOKEN [POST]
+
 tags:
 - name: Autenticación
 - name: Autos
 - name: Clientes
 - name: Otras Consultas
-schemes:
-- https
-- http
+
+# schemes:
+# - http
 paths:
   /oauth/token:
     post:
@@ -33,365 +38,180 @@ paths:
       - Autenticación
       summary: Obtener un token de autenticación
       parameters:
-      - name: grant_type
-        in: query
-        description: Tipo de acceso
-        required: true
-        type: string
-      - name: client_id
-        in: query
-        description: Identificador
-        required: true
-        type: string
-      - name: client_secret
-        in: query
-        description: ' Clave'
-        required: true
-        type: string
+        - name: grant_type
+          in: query
+          description: Tipo de acceso
+          required: true
+          type: string
+        - name: client_id
+          in: query
+          description: 'Identificador'
+          required: true
+          type: string
+        - name: client_secret
+          in: query
+          description: ' Clave'
+          required: true
+          type: string
       responses:
         200:
           description: success
           schema:
-            $ref: '#/definitions/Autenticacionexitosa'
-          responseSchema:
             $ref: '#/definitions/Autenticacionexitosa'
         401:
           description: No Autorizado
   /autos:
     post:
       tags:
-      - Autos
+        - Autos
       summary: Consulta autos
-      parameters: []
       responses:
-        200:
+        '200':
           description: Ok
           schema:
             type: array
-            example:
-            - Placa: C5R38D
-              Clase: Automovil
-              Marca: Toyota
-              Modelo: Corolla
-              Año_fabricacion: "2012"
-              num_asientos: "4"
-              uso: Particular
-              num_serie: MD3FCE0CA421928
-            - Placa: CFDET2
-              Clase: Camión
-              Marca: Acura
-              Modelo: Cerbiatto
-              Año_fabricacion: "2013"
-              num_asientos: "2"
-              uso: Particular
-              num_serie: MD3CVE0P421928
             items:
-              $ref: '#/definitions/Auto'
-          responseSchema:
-            type: array
-            items:
-              $ref: '#/definitions/Auto'
+              $ref: "#/definitions/Auto"
             example:
-            - Placa: C5R38D
-              Clase: Automovil
-              Marca: Toyota
-              Modelo: Corolla
-              Año_fabricacion: "2012"
-              num_asientos: "4"
-              uso: Particular
-              num_serie: MD3FCE0CA421928
-            - Placa: CFDET2
-              Clase: Camión
-              Marca: Acura
-              Modelo: Cerbiatto
-              Año_fabricacion: "2013"
-              num_asientos: "2"
-              uso: Particular
-              num_serie: MD3CVE0P421928
+                    - Placa: "C5R38D"
+                      Clase: "Automovil"
+                      Marca: "Toyota"
+                      Modelo: "Corolla"
+                      Año_fabricacion: "2012"
+                      num_asientos: "4"
+                      uso: "Particular"
+                      num_serie: "MD3FCE0CA421928"
+                    - Placa: "CFDET2"
+                      Clase: "Camión"
+                      Marca: "Acura"
+                      Modelo: "Cerbiatto"
+                      Año_fabricacion: "2013"
+                      num_asientos: "2"
+                      uso: "Particular"
+                      num_serie: "MD3CVE0P421928"
   /insertAuto:
     put:
       tags:
-      - Autos
+        - Autos
       summary: Crear un nuevo registro de auto
       parameters:
-      - name: Placa
-        in: query
-        description: Placa
-        required: true
-        type: string
-      - name: Clase
-        in: query
-        description: Clase
-        required: true
-        type: string
-      - name: Modelo
-        in: query
-        description: Modelo
-        required: true
-        type: string
-      - name: Año_fabricacion
-        in: query
-        description: Año de fabricación
-        required: true
-        type: string
-      - name: num_asientos
-        in: query
-        description: Número de asientos
-        required: true
-        type: string
-      - name: uso
-        in: query
-        description: Uso
-        required: true
-        type: string
-      - name: num_serie
-        in: query
-        description: Número de serie
-        required: true
-        type: string
+              -  $ref: "#/parameters/Placa"
+              -  $ref: "#/parameters/Clase"
+              -  $ref: "#/parameters/Modelo"
+              -  $ref: "#/parameters/fabricacion"
+              -  $ref: "#/parameters/num_asientos"
+              -  $ref: "#/parameters/uso"
+              -  $ref: "#/parameters/num_serie"
       responses:
         200:
           description: Ok
-  /editAuto:
+  /editAuto:  
     put:
       tags:
-      - Autos
+        - Autos
       summary: Actualiza la información de un auto
       parameters:
-      - name: Placa
-        in: query
-        description: Placa
-        required: true
-        type: string
-      - name: Clase
-        in: query
-        description: Clase
-        required: true
-        type: string
-      - name: Modelo
-        in: query
-        description: Modelo
-        required: true
-        type: string
-      - name: Año_fabricacion
-        in: query
-        description: Año de fabricación
-        required: true
-        type: string
-      - name: num_asientos
-        in: query
-        description: Número de asientos
-        required: true
-        type: string
-      - name: uso
-        in: query
-        description: Uso
-        required: true
-        type: string
-      - name: num_serie
-        in: query
-        description: Número de serie
-        required: true
-        type: string
+              -  $ref: "#/parameters/Placa"
+              -  $ref: "#/parameters/Clase"
+              -  $ref: "#/parameters/Modelo"
+              -  $ref: "#/parameters/fabricacion"
+              -  $ref: "#/parameters/num_asientos"
+              -  $ref: "#/parameters/uso"
+              -  $ref: "#/parameters/num_serie"
       responses:
         200:
           description: Ok
   /searchAuto:
     post:
       tags:
-      - Autos
-      summary: Buscar datos de auto
+        - Autos
       parameters:
-      - name: Placa
-        in: query
-        description: Placa
-        required: true
-        type: string
+          -  $ref: "#/parameters/Placa"
+      summary: Buscar datos de auto
       responses:
         200:
           description: Ok
           schema:
             type: string
-            example: ""
-          responseSchema:
-            type: string
-            example: ""
+            example:
+                    Placa: "C5R38D"
+                    Clase: "Camión"
+                    Marca: "Toyota"
+                    Modelo: "Corolla"
+                    Año_fabricacion: "2012"
+                    num_asientos: "4"
+                    uso: "Particular"
+                    num_serie: "MD3FCE0CA421928"
         404:
           description: NOT FOUND
   /clientes:
     post:
       tags:
-      - Clientes
+        - Clientes
       summary: Consulta clientes
-      parameters: []
       responses:
-        200:
+        '200':
           description: Ok
           schema:
             type: array
-            example:
-            - Documento: "09998855"
-              Tipo de documento: DNI
-              Nombre: Maria
-              ape_paterno: Flores
-              ape_materno: Seminario
-              Email: jflores@gmail.com
-              Departamento: Lima
-              Provincia: Lima
-              Distrito: La Molina
-              movil: "985624159"
-            - Documento: "08784899"
-              Tipo de documento: DNI
-              Nombre: Jose
-              ape_paterno: Garcia
-              ape_materno: Jimenez
-              Email: jgarcia@gmail.com
-              Departamento: Lima
-              Provincia: Lima
-              Distrito: San Isidro
-              movil: "995874441"
             items:
-              $ref: '#/definitions/Cliente'
-          responseSchema:
-            type: array
-            items:
-              $ref: '#/definitions/Cliente'
-            example:
-            - Documento: "09998855"
-              Tipo de documento: DNI
-              Nombre: Maria
-              ape_paterno: Flores
-              ape_materno: Seminario
-              Email: jflores@gmail.com
-              Departamento: Lima
-              Provincia: Lima
-              Distrito: La Molina
-              movil: "985624159"
-            - Documento: "08784899"
-              Tipo de documento: DNI
-              Nombre: Jose
-              ape_paterno: Garcia
-              ape_materno: Jimenez
-              Email: jgarcia@gmail.com
-              Departamento: Lima
-              Provincia: Lima
-              Distrito: San Isidro
-              movil: "995874441"
+              $ref: "#/definitions/Cliente"
+            example: 
+                    - Documento: "09998855"
+                      Tipo de documento: "DNI"
+                      Nombre: "Maria"
+                      ape_paterno: "Flores"
+                      ape_materno: "Seminario"
+                      Email: "jflores@gmail.com"
+                      Departamento: "Lima"
+                      Provincia: "Lima"
+                      Distrito: "La Molina"
+                      movil: "985624159"
+                    - Documento: "08784899"
+                      Tipo de documento: "DNI"
+                      Nombre: "Jose"
+                      ape_paterno: "Garcia"
+                      ape_materno: "Jimenez"
+                      Email: "jgarcia@gmail.com"
+                      Departamento: "Lima"
+                      Provincia: "Lima"
+                      Distrito: "San Isidro"
+                      movil: "995874441"
   /insertCliente:
     put:
       tags:
-      - Clientes
+        - Clientes
       summary: Crear un nuevo registro de cliente.
       parameters:
-      - name: Documento
-        in: query
-        description: Número de Documento
-        required: true
-        type: string
-      - name: Tipo
-        in: query
-        description: Tipo de documento
-        required: true
-        type: string
-      - name: Nombre
-        in: query
-        description: Nombre del cliente
-        required: true
-        type: string
-      - name: Ap_paterno
-        in: query
-        description: Apellido Paterno
-        required: true
-        type: string
-      - name: Ap_materno
-        in: query
-        description: Apellido Materno
-        required: true
-        type: string
-      - name: Email
-        in: query
-        description: 'Correo electrónico '
-        required: true
-        type: string
-      - name: Movil
-        in: query
-        description: Número de celular
-        required: false
-        type: string
-      - name: Departamento
-        in: query
-        description: Departamento
-        required: true
-        type: string
-      - name: Provincia
-        in: query
-        description: Provincia
-        required: true
-        type: string
-      - name: Distrito
-        in: query
-        description: Distrito
-        required: true
-        type: string
+              -  $ref: "#/parameters/Documento"
+              -  $ref: "#/parameters/Tipo"
+              -  $ref: "#/parameters/Nombre"
+              -  $ref: "#/parameters/Ap_paterno"
+              -  $ref: "#/parameters/Ap_materno"
+              -  $ref: "#/parameters/Email"
+              -  $ref: "#/parameters/Movil"
+              -  $ref: "#/parameters/Departamento"
+              -  $ref: "#/parameters/Provincia"
+              -  $ref: "#/parameters/Distrito"
       responses:
         200:
           description: Ok
   /editCliente:
     put:
       tags:
-      - Clientes
+        - Clientes
       summary: Actualiza la información de un cliente
       parameters:
-      - name: Documento
-        in: query
-        description: Número de Documento
-        required: true
-        type: string
-      - name: Tipo
-        in: query
-        description: Tipo de documento
-        required: true
-        type: string
-      - name: Nombre
-        in: query
-        description: Nombre del cliente
-        required: true
-        type: string
-      - name: Ap_paterno
-        in: query
-        description: Apellido Paterno
-        required: true
-        type: string
-      - name: Ap_materno
-        in: query
-        description: Apellido Materno
-        required: true
-        type: string
-      - name: Email
-        in: query
-        description: 'Correo electrónico '
-        required: true
-        type: string
-      - name: Movil
-        in: query
-        description: Número de celular
-        required: false
-        type: string
-      - name: Departamento
-        in: query
-        description: Departamento
-        required: true
-        type: string
-      - name: Provincia
-        in: query
-        description: Provincia
-        required: true
-        type: string
-      - name: Distrito
-        in: query
-        description: Distrito
-        required: true
-        type: string
+              -  $ref: "#/parameters/Documento"
+              -  $ref: "#/parameters/Tipo"
+              -  $ref: "#/parameters/Nombre"
+              -  $ref: "#/parameters/Ap_paterno"
+              -  $ref: "#/parameters/Ap_materno"
+              -  $ref: "#/parameters/Email"
+              -  $ref: "#/parameters/Movil"
+              -  $ref: "#/parameters/Departamento"
+              -  $ref: "#/parameters/Provincia"
+              -  $ref: "#/parameters/Distrito"
       responses:
         200:
           description: Ok
@@ -400,90 +220,197 @@ paths:
   /searchCliente:
     post:
       tags:
-      - Clientes
+        - Clientes
       summary: Consultar cliente
       parameters:
-      - name: Documento
-        in: query
-        description: Número de Documento
-        required: true
-        type: string
+               -  $ref: "#/parameters/Documento"
       responses:
         200:
           description: Ok
           schema:
             type: string
-            example: ""
-          responseSchema:
-            type: string
-            example: ""
+            example:
+                    Documento: "02658145"
+                    Tipo de documento: "DNI"
+                    Nombre: "Toyota"
+                    Modelo: "Jose"
+                    ape_paterno: "Flores"
+                    ape_materno: "Seminario"
+                    Email: "jflores@gmail.com"
+                    Departamento: "Lima"
+                    Provincia: "Lima"
+                    Distrito: "La Molina"
+                    movil: "985624159"
         404:
-          description: el recurso de destino no
+          description: el recurso de destino no 
   /marcas:
     post:
+      summary: consulta marcas
       tags:
       - Otras Consultas
-      summary: consulta marcas
       parameters:
-      - name: token
-        in: query
-        description: API
-        required: false
-        type: string
+        - name: token
+          in: query
+          description: 'API'
+          required: false
+          type: string
       responses:
-        200:
+        '200':
           description: Ok
           schema:
             type: string
-            example: ""
-          responseSchema:
-            type: string
-            example: ""
+            example: 
+                    Acura: "44"
+                    Chevrolet: "5"
+                    Ford: "11"
+                    Ferrari: "9"
   /modelos:
     post:
       tags:
-      - Otras Consultas
+        - Otras Consultas
       summary: Consulta modelos
-      parameters: []
       responses:
-        200:
+        '200':
           description: Ok
           schema:
             type: string
-            example: ""
-          responseSchema:
-            type: string
-            example: ""
+            example: 
+                    AURIS: "1270295"
+                    Cynos: "1270156"
+                    FORTUNER: "1276694"
+                    YARIS: "1271224"
   /clases:
     post:
       tags:
-      - Otras Consultas
+        - Otras Consultas
       summary: Consulta clases
-      parameters: []
       responses:
-        200:
+        '200':
           description: Ok
           schema:
             type: string
-            example: ""
-          responseSchema:
-            type: string
-            example: ""
+            example: 
+                    AUTOMOVIL: "1"
+                    CAMION: "5"
+                    CAMIONETA PANEL: "7"
+                    CAMIONETA PICK UP: "4"
   /usos:
     post:
       tags:
-      - Otras Consultas
+        - Otras Consultas
       summary: Consulta usos
-      parameters: []
       responses:
-        200:
+        '200':
           description: Ok
           schema:
             type: string
-            example: ""
-          responseSchema:
-            type: string
-            example: ""
+            example: 
+                    CARGA / TRANSPORTE: "9"
+                    PARTICULAR: "4"
+                    TAXI: "8"
+parameters:
+    Placa:
+        name: Placa
+        in: query
+        description: 'Placa'
+        required: true
+        type: string
+    Clase:
+        name: Clase
+        in: query
+        description: 'Clase'
+        required: true
+        type: string
+    Modelo:
+        name: Modelo
+        in: query
+        description: 'Modelo'
+        required: true
+        type: string
+    fabricacion:
+        name: Año_fabricacion
+        in: query
+        description: 'Año de fabricación'
+        required: true
+        type: string
+    num_asientos:    
+        name: num_asientos
+        in: query
+        description: 'Número de asientos'
+        required: true
+        type: string
+    uso:
+        name: uso
+        in: query
+        description: 'Uso'
+        required: true
+        type: string
+    num_serie:
+        name: num_serie
+        in: query
+        description: 'Número de serie'
+        required: true
+        type: string
+    Documento:
+          name: Documento
+          in: query
+          description: 'Número de Documento'
+          required: true
+          type: string
+    Tipo:
+          name: Tipo
+          in: query
+          description: 'Tipo de documento'
+          required: true
+          type: string
+    Nombre:
+          name: Nombre
+          in: query
+          description: 'Nombre del cliente'
+          required: true
+          type: string
+    Ap_paterno:  
+          name: Ap_paterno
+          in: query
+          description: 'Apellido Paterno'
+          required: true
+          type: string
+    Ap_materno:
+          name: Ap_materno
+          in: query
+          description: 'Apellido Materno'
+          required: true
+          type: string
+    Email:
+          name: Email
+          in: query
+          description: 'Correo electrónico '
+          required: true
+          type: string
+    Movil:
+          name: Movil
+          in: query
+          description: 'Número de celular'
+          required: false
+          type: string
+    Departamento:
+          name: Departamento
+          in: query
+          description: 'Departamento'
+          required: true
+          type: string
+    Provincia:
+          name: Provincia
+          in: query
+          description: 'Provincia'
+          required: true
+          type: string
+    Distrito:
+          name: Distrito
+          in: query
+          description: 'Distrito'
+          required: true
+          type: string
 definitions:
   Autenticacionexitosa:
     properties:
@@ -493,10 +420,6 @@ definitions:
         type: string
       expires_in:
         type: integer
-    example:
-      access_token: access_token
-      token_type: token_type
-      expires_in: 0
   Cliente:
     properties:
       Documento:
@@ -537,106 +460,12 @@ definitions:
         type: string
       num_serie:
         type: string
-parameters:
-  Placa:
-    name: Placa
-    in: query
-    description: Placa
-    required: true
-    type: string
-  Clase:
-    name: Clase
-    in: query
-    description: Clase
-    required: true
-    type: string
-  Modelo:
-    name: Modelo
-    in: query
-    description: Modelo
-    required: true
-    type: string
-  fabricacion:
-    name: Año_fabricacion
-    in: query
-    description: Año de fabricación
-    required: true
-    type: string
-  num_asientos:
-    name: num_asientos
-    in: query
-    description: Número de asientos
-    required: true
-    type: string
-  uso:
-    name: uso
-    in: query
-    description: Uso
-    required: true
-    type: string
-  num_serie:
-    name: num_serie
-    in: query
-    description: Número de serie
-    required: true
-    type: string
-  Documento:
-    name: Documento
-    in: query
-    description: Número de Documento
-    required: true
-    type: string
-  Tipo:
-    name: Tipo
-    in: query
-    description: Tipo de documento
-    required: true
-    type: string
-  Nombre:
-    name: Nombre
-    in: query
-    description: Nombre del cliente
-    required: true
-    type: string
-  Ap_paterno:
-    name: Ap_paterno
-    in: query
-    description: Apellido Paterno
-    required: true
-    type: string
-  Ap_materno:
-    name: Ap_materno
-    in: query
-    description: Apellido Materno
-    required: true
-    type: string
-  Email:
-    name: Email
-    in: query
-    description: 'Correo electrónico '
-    required: true
-    type: string
-  Movil:
-    name: Movil
-    in: query
-    description: Número de celular
-    required: false
-    type: string
-  Departamento:
-    name: Departamento
-    in: query
-    description: Departamento
-    required: true
-    type: string
-  Provincia:
-    name: Provincia
-    in: query
-    description: Provincia
-    required: true
-    type: string
-  Distrito:
-    name: Distrito
-    in: query
-    description: Distrito
-    required: true
-    type: string
+# Added by API Auto Mocking Plugin
+# host: www.interseguro.com.pe
+# basePath: /travel-api/api/v1/
+schemes:
+ - https
+ - http
+# Added by API Auto Mocking Plugin
+host: testsoat.interseguro.com.pe
+basePath: /soat/general
